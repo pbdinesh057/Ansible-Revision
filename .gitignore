@@ -1,0 +1,41 @@
+# --- General File Rules ---
+
+# Ignore backup or temp files
+*~
+*.swp
+*.bak
+
+# Ignore zip and archive files
+*.zip
+*.tar.gz
+
+# Ignore logs
+*.log
+
+# --- Packer-specific Rules ---
+
+# Ignore all .pkrvars.hcl files (usually local environment vars)
+**/*.pkrvars.hcl
+
+# Ignore all .json files used for variable input (like vars.json)
+**/vars*.json
+
+# Ignore JSON format packer templates if using HCL2
+**/packer*.json
+
+# --- VSCode / Editor Configs ---
+.vscode/
+.idea/
+*.code-workspace
+
+# --- OS/Platform-specific ---
+.DS_Store
+Thumbs.db
+
+# --- Terraform (if mixed use) ---
+*.tfstate
+*.tfstate.backup
+*.tfplan
+
+# --- Node Exporter / Service Files (if not needed) ---
+**/*.service

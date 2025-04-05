@@ -1,0 +1,8 @@
+packer-brushup/
+├── ubuntu-ami/
+│   ├── main.pkr.hcl        # Main Packer configuration file
+│   ├── variables.pkr.hcl   # Optional: Variable declarations
+│   ├── ubuntu.pkrvars.hcl  # Optional: Variable values
+│   └── scripts/
+│       └── install_nginx.sh # Example provisioning script
+├── README.md               # Exercises and documentation
