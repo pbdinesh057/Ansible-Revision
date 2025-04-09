@@ -1,0 +1,12 @@
+lamp-packer-ami/
+├── packer.pkr.hcl
+├── variables.pkr.hcl
+├── scripts/
+│   ├── install_lamp.sh
+│   └── cleanup.sh
+└── userdata.sh
+
+
+packer init .
+packer validate .
+packer build .
