@@ -16,3 +16,7 @@ in /etc/ansible.cfg
 copy dinesh1022 pem under /home/ansibleadmin/key.pem
 
 chmod 444 key.pem
+
+
+clone this repo in linux and run
+terraform apply --var-file 15.terraform.tfvars
