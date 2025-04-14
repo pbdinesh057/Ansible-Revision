@@ -49,3 +49,144 @@
 # 3. **Managing Non-Python Systems**: If you have to manage network devices or legacy systems that don’t have Python, `raw` lets you still issue commands to them as long as they support SSH.
 
 # In short, `raw` is a lightweight way to interact with systems that lack Ansible's typical requirements or when you need a direct, quick command run.
+
+
+# Command, Shell, and Raw in Ansible
+# These three Ansible modules are used for running commands on remote hosts, but they have important differences in how they process commands and handle output.
+# Command Module
+# The command module executes commands directly on the remote node without going through a shell. This means shell-specific features like pipes, redirects, environment variables, and globbing won't work.
+# Key characteristics:
+
+# Does not support shell operators (|, >, &&, etc.)
+# More secure as it avoids shell-based vulnerabilities
+# Cannot use environment variables like $HOME
+# Cannot use shell features like globbing (*.txt)
+
+# Example:
+# yaml- name: Get hostname using command module
+  command: hostname
+  register: result
+
+- name: Display the result
+  debug:
+    var: result
+# Sample output:
+# TASK [Get hostname using command module] ******************************************
+# changed: [webserver]
+
+# TASK [Display the result] *********************************************************
+# ok: [webserver] => {
+#     "result": {
+#         "changed": true,
+#         "cmd": [
+#             "hostname"
+#         ],
+#         "delta": "0:00:00.003583",
+#         "end": "2025-04-14 12:34:56.789012",
+#         "rc": 0,
+#         "start": "2025-04-14 12:34:56.785429",
+#         "stderr": "",
+#         "stderr_lines": [],
+#         "stdout": "webserver",
+#         "stdout_lines": [
+#             "webserver"
+#         ]
+#     }
+# }
+
+
+# Shell Module
+# The shell module runs commands through a shell (/bin/sh by default), so it supports all shell features like pipes, redirects, and environment variables.
+# Key characteristics:
+
+# Supports shell operators (|, >, &&, etc.)
+# Can use environment variables
+# Can use shell features like globbing
+# Less secure than command due to shell interpretation
+
+# Example:
+# yaml- name: Count files in /etc using shell module
+  shell: ls -la /etc | wc -l
+  register: result
+
+- name: Display the result
+  debug:
+    var: result
+# Sample output:
+# TASK [Count files in /etc using shell module] *************************************
+# changed: [webserver]
+
+# TASK [Display the result] *********************************************************
+# ok: [webserver] => {
+#     "result": {
+#         "changed": true,
+#         "cmd": "ls -la /etc | wc -l",
+#         "delta": "0:00:00.009876",
+#         "end": "2025-04-14 12:35:01.234567",
+#         "rc": 0,
+#         "start": "2025-04-14 12:35:01.224691",
+#         "stderr": "",
+#         "stderr_lines": [],
+#         "stdout": "143",
+#         "stdout_lines": [
+#             "143"
+#         ]
+#     }
+# }
+# Raw Module
+# The raw module executes a command directly through SSH, bypassing the Ansible module subsystem entirely. It's useful when Python is not available on the remote system.
+# Key characteristics:
+
+# Doesn't require Python on the remote system
+# Used for bootstrapping or when Python isn't available
+# Least amount of error handling and features
+# Always reports "changed" status regardless of actual change
+
+# Example:
+# yaml- name: Check Python version using raw module
+  raw: python3 --version
+  register: result
+
+- name: Display the result
+  debug:
+    var: result
+# Sample output:
+# TASK [Check Python version using raw module] **************************************
+# changed: [webserver]
+
+# TASK [Display the result] *********************************************************
+# ok: [webserver] => {
+#     "result": {
+#         "changed": true,
+#         "rc": 0,
+#         "stderr": "",
+#         "stdout": "Python 3.10.12",
+#         "stdout_lines": [
+#             "Python 3.10.12"
+#         ]
+#     }
+# }
+# Key Differences Summarized
+
+# Command:
+
+# No shell processing
+# More secure
+# Limited functionality (no pipes, redirects)
+# Good for simple, single commands
+
+
+# Shell:
+
+# Full shell features available
+# Less secure than command
+# Good for complex commands using pipes, redirection, etc.
+# Environment variables work
+
+
+# Raw:
+
+# No Python required on remote host
+# Minimal error handling
+# Always reports as "changed"
+# Best for bootstrapping or when Python isn't available
