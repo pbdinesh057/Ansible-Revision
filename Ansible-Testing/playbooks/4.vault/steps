@@ -1,0 +1,12 @@
+for creating secrets in ansible we can use vault, a built-in feature of ansible
+
+ansible-vault create aws-creds
+give password and provide secrets
+
+now the pass is encrypted
+
+to encrypt/decrypt - ansible-vault encrypt/ decrypt aws_creds
+
+
+
+
