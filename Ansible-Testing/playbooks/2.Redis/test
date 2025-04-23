@@ -1,5 +1,9 @@
 https://mokadisuryaprasad.medium.com/day-21-ansible-with-redis-for-storing-the-facts-ansible-vault-dcf920000c20
 
+
+https://dev.to/koh_sh/redis-can-make-ansible-only-a-bit-faster-39g7
+
+
 ansible -m setup
 
 Architecture Overview
