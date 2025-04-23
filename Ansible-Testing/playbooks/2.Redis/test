@@ -1,0 +1,10 @@
+https://mokadisuryaprasad.medium.com/day-21-ansible-with-redis-for-storing-the-facts-ansible-vault-dcf920000c20
+
+ansible -m setup
+
+Architecture Overview
+
+Redis Setup: Either standalone instance or cluster for redundancy
+Ansible Configuration: Configure Ansible to use Redis for fact caching
+Data Structure Design: Organize facts in Redis efficiently
+Retrieval Methods: Implement consistent access patterns

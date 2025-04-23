@@ -2,6 +2,7 @@
 - name: Install Redis Server
   hosts: testserver01
   become: true
+  
   tasks:
     - name: Install Redis dependencies
       apt:

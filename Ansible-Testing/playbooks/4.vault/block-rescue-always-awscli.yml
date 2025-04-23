@@ -9,7 +9,7 @@
     - name: Testing The Ansible Blocks
       #https://www.golinuxcloud.com/ansible-block-rescue-always/ If blocks tasks fails then rescue task will work in the below.
       block:
-        - name: Perform apt update
+        - name: Perform apt update 
           shell: apt update
         - name: Check if Unzip Exists
           shell: unzip
