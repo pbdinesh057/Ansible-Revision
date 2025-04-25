@@ -1,0 +1,88 @@
+---
+- name: Install redis server
+  hosts: testserver01
+  become: true
+
+
+  tasks:
+    - name: update the server
+      shell: |
+        apt-get update -y
+        apt update -y
+
+    - name: Install redis server
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - tcl
+        - build-essential
+
+    - name: Download Redis
+      get_url:
+        url: http://download.redis.io/releases/redis-6.2.5.tar.gz
+        dest: /tmp/redis.tar.gz
+      
+    - name: Extract Redis
+      unarchive:
+        src: /tmp/redis.tar.gz
+        dest: /tmp
+        remote_src: yes
+
+    - name: Compile Redis
+      shell: | 
+        cd /tmp/redis-6.2.5
+        make install
+
+    - name: add user
+      user:
+        name: redis
+        comment: Redis User
+        shell: /bin/false
+        system: yes
+
+    - name: create redis dirs
+      file:
+        path: "{{ item }}"
+        state: directory
+        owner: redis
+        group: redis
+        mode: 0770
+      loop:
+        - /etc/redis  
+        - /var/lib/redis
+        - /var/log/redis
+
+    - name: copy redis config
+      copy:
+        src: redis1.conf
+        dest: /etc/redis/redis.conf
+        owner: redis  
+        group: redis
+        mode: 0644
+    
+    - name: copy redis service file
+      copy: 
+        src: redis1.service
+        dest: /etc/systemd/system/redis.service
+        owner: root
+        group: root 
+        mode: 0644
+
+    - name: enable redis service
+      systemd:
+        name: redis
+        enabled: yes
+        state: started
+        daemon_reload: yes
+
+    # - name: stat and check redis service
+    #   shell: systemctl status redis --no-pager
+    #   register: redis_status
+    #   ignore_errors: yes 
+    
+    - name: Test Redis is working
+      command: redis-cli ping
+      register: redis_ping
+      failed_when: "'PONG' not in redis_ping.stdout"
+      changed_when: false   
