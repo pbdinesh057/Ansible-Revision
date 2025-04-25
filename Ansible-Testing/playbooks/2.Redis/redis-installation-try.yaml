@@ -88,11 +88,11 @@
         group: redis
         mode: 0644
 
-    - name: Test Redis directly
-      become_user: redis
-      shell: /usr/local/bin/redis-server /etc/redis/redis.conf --test-memory
-      register: redis_test
-      ignore_errors: yes     
+    # - name: Test Redis directly
+    #   become_user: redis
+    #   shell: /usr/local/bin/redis-server /etc/redis/redis.conf --test-memory
+    #   register: redis_test
+    #   ignore_errors: yes     
 
     # - name: Test Redis is working
     #   command: redis-cli ping
