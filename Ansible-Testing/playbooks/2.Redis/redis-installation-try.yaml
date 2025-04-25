@@ -2,7 +2,7 @@
 - name: Install redis server
   hosts: testserver01
   become: true
-  
+
   tasks:
     - name: update the server
       shell: |
@@ -54,7 +54,7 @@
 
     - name: copy redis config
       copy:
-        src: redis1.conf
+        src: redis.conf
         dest: /etc/redis/redis.conf
         owner: redis  
         group: redis
@@ -62,7 +62,7 @@
     
     - name: copy redis service file
       copy: 
-        src: redis_1.service
+        src: redis.service
         dest: /etc/systemd/system/redis.service
         owner: root
         group: root 
