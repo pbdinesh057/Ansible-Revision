@@ -1,0 +1,16 @@
+---
+- name: Test Redis Facts Cache Performance
+  hosts: all
+  gather_facts: yes
+  tasks:
+    - name: Get timestamp
+      command: date +%s
+      register: timestamp
+      
+    - name: Display facts and timestamp
+      debug:
+        msg: |
+          Time: {{ timestamp.stdout }}
+          OS Family: {{ ansible_os_family }}
+          Distribution: {{ ansible_distribution }}
+          Python version: {{ ansible_python.version.major }}.{{ ansible_python.version.minor }}
