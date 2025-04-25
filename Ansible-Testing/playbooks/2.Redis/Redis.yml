@@ -2,8 +2,16 @@
 - name: Install Redis Server
   hosts: testserver01
   become: true
-  
+
   tasks:
+
+    - name: update the server
+      shell: |
+        apt-get update -y
+        apt update -y
+      register: update_status
+      ignore_errors: true
+
     - name: Install Redis dependencies
       apt:
         name: "{{ item }}"
@@ -11,7 +19,7 @@
       loop:
         - build-essential
         - tcl
-      when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '24.04'
+      #when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '24.04'
 
     - name: Check Redis Status
       shell: systemctl status redis --no-pager
