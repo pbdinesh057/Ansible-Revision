@@ -4,13 +4,12 @@
   become: true
 
   tasks:
-
-    - name: update the server
-      shell: |
-        apt-get update -y
-        apt update -y
-      register: update_status
-      ignore_errors: true
+    - name: Update and upgrade apt packages
+      become: true
+      apt:
+        upgrade: yes
+        update_cache: yes
+        cache_valid_time: 86400
 
     - name: Install Redis dependencies
       apt:
