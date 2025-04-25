@@ -2,8 +2,7 @@
 - name: Install redis server
   hosts: testserver01
   become: true
-
-
+  
   tasks:
     - name: update the server
       shell: |
@@ -80,6 +79,20 @@
       shell: systemctl status redis --no-pager
       register: redis_status
       ignore_errors: yes 
+
+    - name: Create Redis log file
+      file:
+        path: /var/log/redis.log
+        state: touch
+        owner: redis
+        group: redis
+        mode: 0644
+
+    - name: Test Redis directly
+      become_user: redis
+      shell: /usr/local/bin/redis-server /etc/redis/redis.conf --test-memory
+      register: redis_test
+      ignore_errors: yes     
 
     # - name: Test Redis is working
     #   command: redis-cli ping
