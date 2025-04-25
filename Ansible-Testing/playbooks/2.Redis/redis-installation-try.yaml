@@ -55,7 +55,7 @@
 
     - name: copy redis config
       copy:
-        src: redis1.conf
+        src: ./redis1.conf
         dest: /etc/redis/redis.conf
         owner: redis  
         group: redis
@@ -63,7 +63,7 @@
     
     - name: copy redis service file
       copy: 
-        src: redis1.service
+        src: ./redis1.service
         dest: /etc/systemd/system/redis.service
         owner: root
         group: root 
@@ -80,7 +80,7 @@
     #   shell: systemctl status redis --no-pager
     #   register: redis_status
     #   ignore_errors: yes 
-    
+
     - name: Test Redis is working
       command: redis-cli ping
       register: redis_ping
