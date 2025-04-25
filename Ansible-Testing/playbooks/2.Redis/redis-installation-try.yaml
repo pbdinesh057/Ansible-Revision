@@ -63,7 +63,7 @@
     
     - name: copy redis service file
       copy: 
-        src: redis1.service
+        src: redis_1.service
         dest: /etc/systemd/system/redis.service
         owner: root
         group: root 
