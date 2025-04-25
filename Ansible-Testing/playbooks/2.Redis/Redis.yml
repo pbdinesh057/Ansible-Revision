@@ -114,3 +114,8 @@
       fetch:
         src: /tmp/redis.conf_backup
         dest: /tmp/
+
+    - name: Set custom fact
+      set_fact:
+        environment_type: production
+        application_version: "1.2.3"
