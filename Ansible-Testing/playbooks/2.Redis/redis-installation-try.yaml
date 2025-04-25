@@ -98,4 +98,4 @@
     #   command: redis-cli ping
     #   register: redis_ping
     #   failed_when: "'PONG' not in redis_ping.stdout"
-    #   changed_when: false   
+    #   changed_when: false
