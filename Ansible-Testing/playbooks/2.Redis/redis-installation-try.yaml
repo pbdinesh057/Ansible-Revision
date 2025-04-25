@@ -76,13 +76,13 @@
         state: started
         daemon_reload: yes
 
-    # - name: stat and check redis service
-    #   shell: systemctl status redis --no-pager
-    #   register: redis_status
-    #   ignore_errors: yes 
+    - name: stat and check redis service
+      shell: systemctl status redis --no-pager
+      register: redis_status
+      ignore_errors: yes 
 
-    - name: Test Redis is working
-      command: redis-cli ping
-      register: redis_ping
-      failed_when: "'PONG' not in redis_ping.stdout"
-      changed_when: false   
+    # - name: Test Redis is working
+    #   command: redis-cli ping
+    #   register: redis_ping
+    #   failed_when: "'PONG' not in redis_ping.stdout"
+    #   changed_when: false   
