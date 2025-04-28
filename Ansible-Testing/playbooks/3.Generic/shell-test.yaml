@@ -19,3 +19,7 @@
     - name: Display the file count
       debug:
         var: file_count.stdout
+
+    - name: Display the hostname
+      debug:
+        msg: "The hostname is {{ result.stdout }}"
