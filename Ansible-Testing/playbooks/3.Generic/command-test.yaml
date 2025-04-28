@@ -12,7 +12,7 @@
         var: result
 
     - name: multiple commands
-      command: df -h && free -mht && uptime && date
+      command: df -h
       register: multiple_commands_result
 
     - name: Display the result of multiple commands
