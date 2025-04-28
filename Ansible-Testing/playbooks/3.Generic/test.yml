@@ -6,21 +6,21 @@
   tasks:
     - name: Run SHELL Module
       shell: >
-        echo "Welcome
-        To DevSecOps By Saikiran Pinapathruni ${HOME}"
+        echo "Welcome To DevSecOps By Saikiran Pinapathruni ${HOME}"
       tags:
         - shell
 
-    - name: Run  Env Using SHELL Variables
+    - name: Run Env Using SHELL Variables
       shell: env && df -h && free
       tags:
         - shell
 
     - name: Run COMMAND Module
       command: >
-        echo "To DevSecOps By Saikiran Pinapathruni ${HOME}"
+        echo "Welcome To DevSecOps By Saikiran Pinapathruni ${HOME}"
       tags:
         - command
+
     - name: Run  Env Using COMMAND Variables
       command: env && df -h && free
       tags:
@@ -36,6 +36,7 @@
       raw: env && df -h && free
       tags:
         - raw
+
 # Interview difference between shell command and raw
 # ***command : ansible-playbook -i invfile playbooks/3.generic/shell-command-raw.yml --tags raw ***
 
@@ -55,6 +56,7 @@
 # These three Ansible modules are used for running commands on remote hosts, but they have important differences in how they process commands and handle output.
 # Command Module
 # The command module executes commands directly on the remote node without going through a shell. This means shell-specific features like pipes, redirects, environment variables, and globbing won't work.
+
 # Key characteristics:
 
 # Does not support shell operators (|, >, &&, etc.)
@@ -63,13 +65,16 @@
 # Cannot use shell features like globbing (*.txt)
 
 # Example:
-# yaml- name: Get hostname using command module
+# yaml- 
+
+- name: Get hostname using command module
   command: hostname
   register: result
 
 - name: Display the result
   debug:
     var: result
+
 # Sample output:
 # TASK [Get hostname using command module] ******************************************
 # changed: [webserver]
@@ -105,13 +110,15 @@
 # Less secure than command due to shell interpretation
 
 # Example:
-# yaml- name: Count files in /etc using shell module
+# yaml
+- name: Count files in /etc using shell module
   shell: ls -la /etc | wc -l
   register: result
 
 - name: Display the result
   debug:
     var: result
+    
 # Sample output:
 # TASK [Count files in /etc using shell module] *************************************
 # changed: [webserver]
