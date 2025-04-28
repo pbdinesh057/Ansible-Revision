@@ -11,14 +11,10 @@
       debug:
         var: result
 
-    - name: Count files in /etc using shell module
-      shell: ls -la /etc | wc -l
-      register: file_count
+    - name: multiple commands
+      command: df -h && free -mht && uptime && date
+      register: multiple_commands_result
 
-    - name: Display the file count
+    - name: Display the result of multiple commands
       debug:
-        var: file_count.stdout
-
-    - name: Display the hostname
-      debug:
-        msg: "The hostname is {{ result.stdout }}"
+        var: multiple_commands_result
