@@ -25,4 +25,27 @@
         msg: "The hostname is {{ result.stdout }}"
 
 ---
--
+- name: testing command module
+  hosts: testserver01
+  become: true
+
+  tasks:
+    - name: Get hostname using command module
+      command: hostname
+      register: result
+
+    - name: Display the result
+      debug:
+        var: result
+
+    - name: Count files in /etc using shell module
+      shell: ls -la /etc | wc -l
+      register: file_count
+
+    - name: Display the file count
+      debug:
+        var: file_count.stdout
+
+    - name: Display the hostname
+      debug:
+        msg: "The hostname is {{ result.stdout }}"
