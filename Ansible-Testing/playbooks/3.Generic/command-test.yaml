@@ -18,3 +18,10 @@
     - name: Display the result of multiple commands
       debug:
         var: multiple_commands_result
+
+    - name: display stdout lines
+      debug:
+        msg: "{{ item }}"
+      with_items:
+        - "{{ result.stdout_lines }}"
+        - "{{ multiple_commands_result.stdout_lines }}"
