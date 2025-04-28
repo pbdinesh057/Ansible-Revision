@@ -1,8 +1,7 @@
----
-- name: testing shell module
+- name: testing command module
   hosts: testserver01
   become: true
-  
+
   tasks:
     - name: Get hostname using command module
       command: hostname
