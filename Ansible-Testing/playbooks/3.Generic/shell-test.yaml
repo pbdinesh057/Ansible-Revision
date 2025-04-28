@@ -1,8 +1,8 @@
 ---
 - name: testing shell module
-  hosts: all
+  hosts: testserver01
   become: true
-
+  
   tasks:
     - name: Get hostname using command module
       command: hostname
@@ -23,3 +23,6 @@
     - name: Display the hostname
       debug:
         msg: "The hostname is {{ result.stdout }}"
+
+---
+-
