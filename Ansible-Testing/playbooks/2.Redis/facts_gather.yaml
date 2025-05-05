@@ -1,0 +1,13 @@
+---
+- name: Test Redis Facts Cache
+  hosts: testserver01
+  gather_facts: yes
+  tasks:
+    - name: Display a message
+      debug:
+        msg: "Facts have been gathered and cached in Redis"
+
+    - name: Set custom fact
+      set_fact:
+        environment_type: production
+        application_version: "1.2.3"
