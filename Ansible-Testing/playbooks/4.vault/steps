@@ -8,5 +8,27 @@ now the pass is encrypted
 to encrypt/decrypt - ansible-vault encrypt/ decrypt aws_creds
 
 
+create tls.key and tls.crt and encrypt them under /tmp in control node with pass as India@12345
 
+ansible-vault encrypt_string 'India@12345' --name 'user_password'
+
+root@ip-10-0-2-199:/tmp# ansible-vault encrypt_string 'India@12345' --name 'user_password'
+New Vault password:
+Confirm New Vault password:
+Encryption successful
+user_password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          62333235313562653361353663613462646533353234393334346664303465316131353130623831
+          6537383830383838303032366565353137616332663134640a373239376339616235333538656430
+          32363434613165326661383533623263356530393131336262326632663339303361336266376337
+          6636643836326662350a323033356661373931393537393338363965653838663831323839383538
+          3864
+
+
+under ansible.cfg change parameter - vault_password_file=/root/vaultpass
+
+
+nano /root/vaultpass
+
+give password as India@12345
 
