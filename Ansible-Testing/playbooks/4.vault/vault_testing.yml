@@ -57,7 +57,8 @@
         groups: root
         shell: /bin/bash
         group: sudo
-        password: "{{ '%s' | format(user_password) | regex_replace('\n', '') | password_hash('sha512') }}"
+        password: "India@12345"
+        #password: "{{ '%s' | format(user_password) | regex_replace('\n', '') | password_hash('sha512') }}"
         password_expire_min: 1
       with_items:
         - Avinash
